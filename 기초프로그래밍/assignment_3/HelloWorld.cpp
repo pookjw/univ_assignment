@@ -39,7 +39,7 @@ int main()
 		c = a - 1;
 		for (b = 2; a > b; b++) {
 			if (a%b == 0) {
-				// We didn't learn break yet so I used b = a intead of it. So for will stop the lopp becuz condition is a > b.
+				// We didn't learn break yet so I used b = a intead of it. So for will stop the loop becuz condition is a > b.
 				// break;
 				b = a;
 			} else if (b == c) {
