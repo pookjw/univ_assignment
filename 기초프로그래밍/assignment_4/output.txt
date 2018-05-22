@@ -1,0 +1,17 @@
+a = bq + r (a and b must be greater than 0 and a is greater than or equal to b.) Enter a and b.
+Enter a = 876
+Enter b = 3
+q = 292, r = 0
+
+a = bq + r (a and b must be greater than 0 and a is greater than or equal to b.) Enter a and b.
+Enter a = 281
+Enter b = 3
+q = 93, r = 2
+
+a = bq + r (a and b must be greater than 0 and a is greater than or equal to b.) Enter a and b.
+Enter a = 875
+Enter b = 3
+q = 291, r = 2
+
+a = bq + r (a and b must be greater than 0 and a is greater than or equal to b.) Enter a and b.
+Enter a =
