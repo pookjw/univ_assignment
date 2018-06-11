@@ -1,6 +1,6 @@
 #!/bin/sh
 # calc
-TOOL_VERSION="1.1"
+TOOL_VERSION="1.2"
 
 function showLines(){ # columns 길이에 맞게 선을 출력하는 함수
 	PRINTED_COUNTS=0
@@ -94,7 +94,6 @@ while(true); do
 			echo "bit(a, i)		BITSTRING i-TH BIT"
 			echo "exit			quit tool"
 			echo "clear			clear window"
-			echo "settings		show settings"
 			echo "help [option]		show this message. (option: --example)"
 		fi
 	# alt command를 인식하는 코드입니다. a+b, a-b 같은 것들.
