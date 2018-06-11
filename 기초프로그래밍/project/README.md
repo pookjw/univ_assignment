@@ -1,6 +1,6 @@
 # calc
 
-![Image](https://farm2.staticflickr.com/1753/27857255917_76d93209bb_o.png)
+![Image](https://farm2.staticflickr.com/1751/41841805485_3776c17b2a_o.png)
 
 국민대학교 김진우의 기초프로그래밍 과제입니다. C++과 shell 언어를 통해 제작된 계산기이며, 아래 연산들을 지원합니다.
 
@@ -50,13 +50,11 @@
 
     (23) bit(a, i)   : BITSTRING i-TH BIT
 
-# To-Do (Version 1.0)
+# Compatibility
 
-현재 macOS만 지원합니다. macOS Mojave 10.14 Beta (18A293u)와 Xcode 10.0 beta (10L176w)에서 테스트 했습니다.
+macOS만 지원합니다. macOS Mojave 10.14 Beta (18A293u)와 Xcode 10.0 beta (10L176w)에서 테스트 했습니다.
 
-그렇기에 [바이너리 (링크)](https://github.com/pookjw/univ_assignment/tree/master/기초프로그래밍/project/bin)들은 `Mach-O 64-bit executable x86_64`로 미리 컴파일 되었습니다. Linux와 Windows Subsystem for Linux에서도 지원하고 싶으나... 시간이 안 될 것 같네요 ㅠㅠ 시간되면 하는 걸로...
-
-아직까지는 23개의 연산 중 8번까지만 지원합니다. 마감일 전까지 해야죠...
+그렇기에 [바이너리 (링크)](https://github.com/pookjw/univ_assignment/tree/master/기초프로그래밍/project/bin)들은 `Mach-O 64-bit executable x86_64`로 미리 컴파일 되었습니다.
 
 # How to run
 
@@ -67,3 +65,7 @@
 `$ chmod +x calc.sh`
 
 `$ ./calc.sh`
+
+그러면 `calc.sh`이 실행되며, `help` 명령어로 사용 가능한 명령어 목록을 볼 수 있습니다.
+
+하나하나 다 돌려보기 귀찮으시면 `help --example` 명령어로 일괄적으로 실행시킬 수 있습니다.

@@ -9,12 +9,12 @@
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
-    int a = atoi(argv[1]);
+    std::string a = argv[1];
     int b = atoi(argv[2]);
-    int c = 1;
-    for (int i = 1; i <= b; i++) {
-        c *= a; // 수를 정해진 횟수만큼 곱함
+    std::rotate(a.rbegin(), a.rbegin() + b, a.rend());
+    for (int i=0; i<b; i++){
+        a[i] = '0';
     }
-    printf("%d\n", c);
+    std::printf("%s\n", a.c_str());
     return 0;
 }

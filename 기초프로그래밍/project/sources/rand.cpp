@@ -7,14 +7,15 @@
 //
 
 #include <iostream>
+#include <time.h>
 
 int main(int argc, const char * argv[]) {
-    int a = atoi(argv[1]);
-    int b = atoi(argv[2]);
-    int c = 1;
-    for (int i = 1; i <= b; i++) {
-        c *= a; // 수를 정해진 횟수만큼 곱함
+    int n = atoi(argv[1]);
+    int rd;
+    srand((int)time(NULL));
+    for (int i=0; i<=n; i++){
+        rd = rand() % n;
     }
-    printf("%d\n", c);
+    printf("%d\n", rd);
     return 0;
 }
