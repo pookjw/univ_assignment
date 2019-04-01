@@ -6,7 +6,7 @@ Python 3.7.3 (macOS) 기준으로 작동합니다.
 
 ## 윤년 판별 (leap_year.py)
 
-[leap_year.py로 이동하기](수리전산/practice_1/leap_year.py)
+[leap_year.py로 이동하기](leap_year.py)
 
 ### Usage
 
@@ -53,7 +53,7 @@ Python 3.7.3 (macOS) 기준으로 작동합니다.
 
 ## 피라미드 인쇄 (pyramid.py)
 
-[pyramid.py로 이동하기](수리전산/practice_1/pyramid.py)
+[pyramid.py로 이동하기](pyramid.py)
 
 ### Usage
 
