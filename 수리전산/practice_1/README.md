@@ -95,7 +95,7 @@ Python 3.7.3 (macOS) 기준으로 작동합니다.
      
 ## References
 
-- [Leap year/Algorithm](https://en.wikipedia.org/wiki/Leap_year#Algorithm)
+- [Leap year#Algorithm](https://en.wikipedia.org/wiki/Leap_year#Algorithm)
 
 - [How to use sys.argv in Python](https://www.pythonforbeginners.com/system/python-sys-argv)
 
