@@ -22,7 +22,7 @@ Python 3.7.3 (macOS) 기준으로 작동합니다.
 
 ### Example
 
-▼ 현재 (2019년 기준)이 윤년인지 판단
+▼ 현재 (2019년 기준)이 윤년인지 판별
 
     $ /usr/local/bin/python3.7 ./leap_year.py -c
     2019 is not a leap year. (reason: 2019 modulo 4 is not 0.)
@@ -31,22 +31,22 @@ Python 3.7.3 (macOS) 기준으로 작동합니다.
     2019 is not a leap year. (reason: 2019 modulo 4 is not 0.)
 
 
-▼ 1999년이 윤년인지 판단
+▼ 1999년이 윤년인지 판별
 
     $ /usr/local/bin/python3.7 ./leap_year.py -y 1999
     1999 is not a leap year. (reason: 1999 modulo 4 is not 0.)
 
-▼ 2040년이 윤년인지 판단
+▼ 2040년이 윤년인지 판별
 
     $ /usr/local/bin/python3.7 ./leap_year.py -y 2040
     2040 is a leap year. (reason: 2040 modulo 4 is 0.)
 
-▼ 2100년이 윤년인지 판단
+▼ 2100년이 윤년인지 판별
 
     $ /usr/local/bin/python3.7 ./leap_year.py -y 2100
     2100 is not a leap year. (reason: 2100 modulo 100 is 0.)
 
-▼ 2400년이 윤년인지 판단
+▼ 2400년이 윤년인지 판별
 
     $ /usr/local/bin/python3.7 ./leap_year.py -y 2400
     2400 is a leap year. (reason: 2400 modulo 400 is 0.)
