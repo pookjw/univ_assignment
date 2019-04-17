@@ -10,7 +10,7 @@ options:
 -p3 [number]        solve Problem 3
 -p4 [start] [end]   solve Problem 4""")
 
-class superClass:
+class superClass: # SuperClass to calculate fibonacci number
     def recursion(self, COUNT):
         if COUNT < 2:
             return COUNT
@@ -27,7 +27,7 @@ class superClass:
             TEMP_2 = TEMP_3
         return TEMP_1
     
-class fibonacci(superClass):
+class fibonacci(superClass): # Subclass to return you want
     def __init__(self, ALGORITHM):
         self.ALGORITHM = ALGORITHM
     def number(self, COUNT):
@@ -41,7 +41,7 @@ class fibonacci(superClass):
             TEMP_LIST.append(self.number(LOOP))
         return TEMP_LIST
 
-try:
+try: # Problem 4 - ./fibonacci.py -p4 [START - like 4] [END - like 8]
     PROBLEM = str(sys.argv[1])
     START_NUMBER = int(sys.argv[2])
     END_NUMBER = int(sys.argv[3])
@@ -54,7 +54,7 @@ try:
         print()
         helpMessage()
 except IndexError:
-    try:
+    try: # Problem 1, 2 ,3 - ./fibonacci -p1 [NUMBER - like 5]
         PROBLEM = str(sys.argv[1])
         NUMBER = int(sys.argv[2])
         if PROBLEM == "-p1":
