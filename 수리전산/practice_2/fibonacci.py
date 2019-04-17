@@ -11,12 +11,12 @@ options:
 -p4 [start] [end]   solve Problem 4""")
 
 class superClass: # SuperClass to calculate fibonacci number
-    def recursion(self, COUNT):
+    def recursion(self, COUNT): # Problem 1
         if COUNT < 2:
             return COUNT
         return (self.recursion(COUNT-2) + self.recursion(COUNT-1))
 
-    def iteration(self, COUNT):
+    def iteration(self, COUNT): # Problem 2
         if COUNT < 2:
             return COUNT
         TEMP_1 = 1
@@ -30,12 +30,12 @@ class superClass: # SuperClass to calculate fibonacci number
 class fibonacci(superClass): # Subclass to return you want
     def __init__(self, ALGORITHM):
         self.ALGORITHM = ALGORITHM
-    def number(self, COUNT):
+    def number(self, COUNT): # Problem 1 and 2
         if self.ALGORITHM == "recursion":
             return self.recursion(COUNT)
         elif self.ALGORITHM == "iteration":
             return self.iteration(COUNT)
-    def sequence(self, START, END):
+    def sequence(self, START, END): # Problem 3 and 4
         TEMP_LIST = []
         for LOOP in range(START,END+1):
             TEMP_LIST.append(self.number(LOOP))
