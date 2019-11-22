@@ -21,12 +21,12 @@ class RPS{
         self.count = count
     }
     
-    enum cases: Int{
+    enum Cases: Int{
         case rock, scissor, paper
     }
     
-    func play(_ player_case: cases){
-        let computer_case = cases(rawValue: [0, 1, 2].randomElement()!)!
+    func play(_ player_case: Cases){
+        let computer_case = Cases(rawValue: [0, 1, 2].randomElement()!)!
         let case_array = [player_case.rawValue, computer_case.rawValue].sorted()
         
         func result(win_case: Int? = nil, draw: Bool? = nil){
