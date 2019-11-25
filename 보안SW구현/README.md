@@ -6,7 +6,7 @@ Keras로 한글을 Image Classification하는 방법을 안내하는 문서입�
 
 [전북대학교 CV Lab](http://cv.jbnu.ac.kr/index.php?mid=notice&document_srl=189)에서 한글 PHD08 데이터 셋을 다운로드 받을 수 있습니다. `.alz`로 압축되어 있으며, 용량은 약 658MB입니다. 압축해제하면 약 7.52GB입니다.
 
-그리고 Keras는 PHD08 데이터 셋이 아닌 npy (numpy array)를 요구합니다. 또한 모든 data 들은 행과 렬의 크기가 같아야 하는데 위 한글 PHD08 데이터 셋의 크기는 다 제각각입니다. 따라서 PHD08 데이터를 npy로 변환해줘야 합니다. 이는 [sungjunyoung/phd08-conversion](https://github.com/sungjunyoung/phd08-conversion)를 이용하면 됩니다.
+그리고 Keras는 PHD08 데이터 셋이 아닌 npy (numpy array)를 요구합니다. 또한 모든 data 들은 행과 렬의 크기가 같아야 하는데 위 한글 PHD08 데이터 셋의 크기는 다 제각각입니다. 따라서 PHD08 데이터를 크기가 다 같은 npy로 변환해줘야 합니다. 이는 [sungjunyoung/phd08-conversion](https://github.com/sungjunyoung/phd08-conversion)를 이용하면 됩니다.
 
 여기서 유의해야 할 점이 있습니다. 위 프로그램은 `from scipy.misc import imresize` 코드가 있는데 **imresize**는 [SciPy 1.3.0rc1](https://github.com/scipy/scipy/releases/tag/v1.3.0rc1)에서 삭제되었습니다. 그래서 SciPy 1.1.0를 설치해야 합니다.
 
@@ -14,7 +14,7 @@ Keras로 한글을 Image Classification하는 방법을 안내하는 문서입�
 
 `$ python3 -m pip install scipy==1.1.0`
 
-또한 한글 PHD08 파일은 2,350개나 되며 용량은 7.52GB 되므로 이걸 모두 npy로 변환하는건 정말 오래 걸리므로 필요한 파일만 몇개 골라서 변환하는걸 추천드립니다. 저는 **라, 호, 다, 밟, 쟈, 꺅, 갠, 아** 총 8개를 고르겠습니다. 이 8개의 파일들을 `8_images`라는 폴더에 넣습니다. 이제 `phd08_to_npy.py`로 PHD08에서 npy로 변환해 줍니다. 제가 설정한 크기는 28x28 입니다.
+또한 한글 PHD08 파일은 2,350개나 되며 용량은 7.52GB 되므로 이걸 모두 npy로 변환하는건 정말 오래 걸리므로 필요한 파일만 몇개 골라서 변환하는걸 추천드립니다. 저는 **라, 호, 댜, 밟, 쟈, 꺅, 갠, 아** 총 8개를 고르겠습니다. 이 8개의 파일들을 `8_images`라는 폴더에 넣습니다. 이제 `phd08_to_npy.py`로 PHD08에서 npy로 변환해 줍니다. 제가 설정한 크기는 28x28 입니다.
 
 ```
 $ python3 phd08-conversion-master/phd08_to_npy.py --data_dir=8_images --width=28 --height=28
@@ -42,7 +42,7 @@ phd08_data_1.npy    phd08_data_3.npy    phd08_labels_1.npy    phd08_labels_3.npy
 phd08_data_2.npy    phd08_data_4.npy    phd08_labels_2.npy    phd08_labels_4.npy
 ```
 
-그러면 **data**에는 각 2개의 데이터가 있으며, **labels**에는 각 데이터의 이름을 0, 1로 지정합니다. 시험삼아 **phd08_data_1.npy**의 0~24 데이터를 `plt`로 표시해보면 아래와 같이 잘 뜨는 것을 확인할 수 있습니다.
+그러면 **data**에는 각 2개의 데이터가 있으며, **labels**에는 각 데이터의 이름을 0, 1, 2, ... 7 - 총 8개로, 각각 2개씩 지정합니다. 시험삼아 **phd08_data_1.npy**의 0~24 데이터를 `plt`로 표시해보면 아래와 같이 잘 뜨는 것을 확인할 수 있습니다.
 
 ```python
 import numpy as np
