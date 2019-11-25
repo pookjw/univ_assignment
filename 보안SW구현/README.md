@@ -2,7 +2,13 @@
 
 Keras로 한글을 Image Classification하는 방법을 안내하는 문서입니다.
 
-## 한글 이미지 npy 얻기
+## [Python] tensorflow 설치
+
+Python 3.6.8, macOS 기준입니다. 현재 Python 3.7 이상에서는 tensorflow 2.0.0과 완벽히 호환이 안 되는 걸로 압니다.
+
+`$ python3 -m pip install --upgrade tensorflow`
+
+## [Python] 한글 이미지 npy 얻기
 
 [전북대학교 CV Lab](http://cv.jbnu.ac.kr/index.php?mid=notice&document_srl=189)에서 한글 PHD08 데이터 셋을 다운로드 받을 수 있습니다. `.alz`로 압축되어 있으며, 용량은 약 658MB입니다. 압축해제하면 약 7.52GB입니다.
 
@@ -339,13 +345,6 @@ plt.show()
 ```
 
 ![6](https://live.staticflickr.com/65535/49120238117_cf97358b0d_o.png)
-
-
-## [R] Keras Training
-
-## [R] Keras Prediction
-
-## [R] Graph
 
 ## 코드 출처 및 더 많은 자료
 
