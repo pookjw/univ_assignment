@@ -20,14 +20,14 @@ temp_6 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/p
 train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0) / 255.0
 train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
 
-hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
+hangul_names = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 
 # Training
 
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(6, activation='softmax')
+    keras.layers.Dense(8, activation='softmax')
 ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
@@ -42,11 +42,50 @@ def predict_image(image):
     temp_image = (((temp_image / 255.0) - 1)) * (-1) # 흑백 반전
     return temp_image
 
-a = predict_image(predict_image_path)
+test_image = [predict_image(predict_image_path)]
+test_label = [5]
 plt.figure()
-plt.imshow(a.reshape(28,28))
+plt.imshow(test_image[0].reshape(28,28))
 plt.show()
 
-input_predictions = model.predict([a])
-index = np.argmax(input_predictions[0])
-print('predicted: ', hangul[index])
+prediction = model.predict(test_image)
+index = np.argmax(prediction[0])
+print('Predicted: ', hangul_names[index])
+
+# Graph
+
+def plot_image(i, predictions_array, true_label, img):
+  predictions_array, true_label, img = predictions_array, true_label[i], img[i]
+  plt.grid(False)
+  plt.xticks([])
+  plt.yticks([])
+
+  plt.imshow(img.reshape(28,28), cmap=plt.cm.binary)
+
+  predicted_label = np.argmax(predictions_array)
+  if predicted_label == true_label:
+    color = 'blue'
+  else:
+    color = 'red'
+
+  plt.xlabel("{:2.0f}%".format(100*np.max(predictions_array), color=color))
+
+def plot_value_array(i, predictions_array, true_label):
+  predictions_array, true_label = predictions_array, true_label[i]
+  plt.grid(False)
+  plt.xticks(range(8))
+  plt.yticks([])
+  thisplot = plt.bar(range(8), predictions_array, color="#777777")
+  plt.ylim([0, 1])
+  predicted_label = np.argmax(predictions_array)
+
+  thisplot[predicted_label].set_color('red')
+  thisplot[true_label].set_color('blue')
+
+i = 0
+plt.figure(figsize=(6,3))
+plt.subplot(1,2,1)
+plot_image(i, prediction[i], test_label, test_image)
+plt.subplot(1,2,2)
+plot_value_array(i, prediction[i], test_label)
+plt.show()

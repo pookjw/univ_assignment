@@ -42,11 +42,7 @@ phd08_data_1.npy    phd08_data_3.npy    phd08_labels_1.npy    phd08_labels_3.npy
 phd08_data_2.npy    phd08_data_4.npy    phd08_labels_2.npy    phd08_labels_4.npy
 ```
 
-그러면 **data**에는 각 2개의 데이터가 있으며, **labels**에는 각 데이터의 이름을 0, 1로 지정합니다. 이 파일들을 Python에서 load하고 Training을 해봅시다.
-
-## [Python] Keras Training
-
-시험삼아 **phd08_data_1.npy**의 0~24 데이터를 `plt`로 표시해보면 아래와 같이 잘 뜨는 것을 확인할 수 있습니다.
+그러면 **data**에는 각 2개의 데이터가 있으며, **labels**에는 각 데이터의 이름을 0, 1로 지정합니다. 시험삼아 **phd08_data_1.npy**의 0~24 데이터를 `plt`로 표시해보면 아래와 같이 잘 뜨는 것을 확인할 수 있습니다.
 
 ```python
 import numpy as np
@@ -69,8 +65,9 @@ plt.show()
 
 ![1](https://live.staticflickr.com/65535/49117025451_e7251eb6d8_o.png)
 
-이제 Keras로 train을 해봅니다.
+## [Python] Keras Training
 
+이제 위 파일들을 Python에서 raining을 해봅시다.
 
 ```python
 from __future__ import absolute_import, division, print_function, unicode_literals
@@ -99,7 +96,7 @@ hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(6, activation='softmax')
+    keras.layers.Dense(8, activation='softmax')
 ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
@@ -162,7 +159,7 @@ hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(6, activation='softmax')
+    keras.layers.Dense(8, activation='softmax')
 ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
@@ -177,19 +174,20 @@ def predict_image(image):
     temp_image = (((temp_image / 255.0) - 1)) * (-1) # 흑백 반전
     return temp_image
 
-a = predict_image(predict_image_path)
+test_image = [predict_image(predict_image_path)]
+test_label = [5]
 plt.figure()
-plt.imshow(a.reshape(28,28))
+plt.imshow(test_image[0].reshape(28,28))
 plt.show()
 
-input_predictions = model.predict([a])
-index = np.argmax(input_predictions[0])
-print('predicted: ', hangul[index])
+prediction = model.predict(test_image)
+index = np.argmax(prediction[0])
+print('Predicted: ', hangul_names[index])
 ```
 
 ![3](https://live.staticflickr.com/65535/49116580323_d52d084f4e_o.png)
 
-그러면 `plt`으로 제 손글씨를 npy 데이터로 바꾼 결과가 먼저 나옵니다. 이 창을 종료하면 아래와 같이 `predicted:  밟`이 나오면서 성공적으로 예측합니다.
+그러면 `plt`으로 제 손글씨를 npy 데이터로 바꾼 결과가 먼저 나옵니다. 이 창을 종료하면 아래와 같이 `Predicted:  밟`이 나오면서 성공적으로 예측합니다.
 
 ```
 $ python3 hangul_keras.py
@@ -207,14 +205,12 @@ Epoch 4/5
 13122/13122 [==============================] - 1s 50us/sample - loss: 1.0451e-04 - accuracy: 1.0000
 Epoch 5/5
 13122/13122 [==============================] - 1s 50us/sample - loss: 6.4303e-05 - accuracy: 1.0000
-predicted:  밟
+Predicted:  밟
 ```
 
-마찬가지로 제 손글씨로 작성한 **꺅** 사진도 해보겠습니다.
+마찬가지로 제 손글씨로 작성한 **꺅** 사진도 해보면 아래와 같이 `Predicted:  꺅`이 나오면서 성공적으로 예측합니다.
 
 ![4](https://live.staticflickr.com/65535/49116589698_7104083514_o.jpg)
-
-![5](https://live.staticflickr.com/65535/49117098731_48530d0d49_o.png)
 
 ```
 $ python3 hangul_keras.py
@@ -232,5 +228,119 @@ Epoch 4/5
 13122/13122 [==============================] - 1s 50us/sample - loss: 1.0218e-04 - accuracy: 1.0000
 Epoch 5/5
 13122/13122 [==============================] - 1s 50us/sample - loss: 5.9258e-05 - accuracy: 1.0000
-predicted:  꺅
+Predicted:  꺅
 ```
+
+![5](https://live.staticflickr.com/65535/49117098731_48530d0d49_o.png)
+
+## [Python] Graph
+
+Predict한 데이터를 토대로 Graph로 표현할 수 있습니다.
+
+```python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.misc import imresize
+from scipy.misc import imread
+
+# Load Data
+
+# 손글씨 사진과 npy data들의 파일 경로를 입력해 줍니다.
+predict_image_path = 'handwriting.jpeg'
+temp_1 = np.load('phd08_data_1.npy', mmap_mode='r')
+temp_2 = np.load('phd08_data_2.npy', mmap_mode='r')
+temp_3 = np.load('phd08_data_3.npy', mmap_mode='r')
+temp_4 = np.load('phd08_labels_1.npy', mmap_mode='r')
+temp_5 = np.load('phd08_labels_2.npy', mmap_mode='r')
+temp_6 = np.load('phd08_labels_3.npy', mmap_mode='r')
+
+train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0) / 255.0
+train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
+
+hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
+
+# Training
+
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(8, activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(train_images, train_labels, epochs=5)
+
+# Prediction
+
+def predict_image(image):
+    temp_image = imread(image, flatten=True, mode='I')
+    temp_image = imresize(temp_image, [28, 28])
+    temp_image = temp_image.reshape(1,28,28)
+    temp_image = (((temp_image / 255.0) - 1)) * (-1) # 흑백 반전
+    return temp_image
+
+test_image = [predict_image(predict_image_path)]
+test_label = [5]
+plt.figure()
+plt.imshow(test_image[0].reshape(28,28))
+plt.show()
+
+prediction = model.predict(test_image)
+index = np.argmax(prediction[0])
+print('Predicted: ', hangul_names[index])
+
+# Graph
+
+def plot_image(i, predictions_array, true_label, img):
+  predictions_array, true_label, img = predictions_array, true_label[i], img[i]
+  plt.grid(False)
+  plt.xticks([])
+  plt.yticks([])
+
+  plt.imshow(img.reshape(28,28), cmap=plt.cm.binary)
+
+  predicted_label = np.argmax(predictions_array)
+  if predicted_label == true_label:
+    color = 'blue'
+  else:
+    color = 'red'
+
+  plt.xlabel("{:2.0f}%".format(100*np.max(predictions_array), color=color))
+
+def plot_value_array(i, predictions_array, true_label):
+  predictions_array, true_label = predictions_array, true_label[i]
+  plt.grid(False)
+  plt.xticks(range(8))
+  plt.yticks([])
+  thisplot = plt.bar(range(8), predictions_array, color="#777777")
+  plt.ylim([0, 1])
+  predicted_label = np.argmax(predictions_array)
+
+  thisplot[predicted_label].set_color('red')
+  thisplot[true_label].set_color('blue')
+
+i = 0
+plt.figure(figsize=(6,3))
+plt.subplot(1,2,1)
+plot_image(i, prediction[i], test_label, test_image)
+plt.subplot(1,2,2)
+plot_value_array(i, prediction[i], test_label)
+plt.show()
+
+```
+
+![6](https://live.staticflickr.com/65535/49120238117_cf97358b0d_o.png)
+
+
+## [R] Keras Training
+
+## [R] Keras Prediction
+
+## [R] Graph
+
+## 출처 및 더 많은 자료
+
+[Basic classification: Classify images of clothing](https://www.tensorflow.org/tutorials/keras/classification)
