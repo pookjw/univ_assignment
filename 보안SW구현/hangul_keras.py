@@ -8,17 +8,19 @@ from scipy.misc import imread
 
 # Load Data
 
-predict_image_path = '/Users/pook/Google Drive/Documents/project/1.jpeg'
+predict_image_path = '/Users/pook/Google Drive/Documents/project/2.jpeg'
 
 temp_1 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_data_1.npy', mmap_mode='r')
 temp_2 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_data_2.npy', mmap_mode='r')
 temp_3 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_data_3.npy', mmap_mode='r')
-temp_4 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_1.npy', mmap_mode='r')
-temp_5 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_2.npy', mmap_mode='r')
-temp_6 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_3.npy', mmap_mode='r')
+temp_4 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_data_4.npy', mmap_mode='r')
+temp_5 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_1.npy', mmap_mode='r')
+temp_6 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_2.npy', mmap_mode='r')
+temp_7 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_3.npy', mmap_mode='r')
+temp_8 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_3.npy', mmap_mode='r')
 
-train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0) / 255.0
-train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
+train_images = np.concatenate((temp_1, temp_2, temp_3, temp_4), axis=0) / 255.0
+train_labels = np.concatenate((temp_5, temp_6, temp_7, temp_8), axis=0)
 
 hangul_names = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 

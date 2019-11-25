@@ -82,12 +82,14 @@ import matplotlib.pyplot as plt
 temp_1 = np.load('phd08_data_1.npy', mmap_mode='r')
 temp_2 = np.load('phd08_data_2.npy', mmap_mode='r')
 temp_3 = np.load('phd08_data_3.npy', mmap_mode='r')
-temp_4 = np.load('phd08_labels_1.npy', mmap_mode='r')
-temp_5 = np.load('phd08_labels_2.npy', mmap_mode='r')
-temp_6 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_4 = np.load('phd08_data_4.npy', mmap_mode='r')
+temp_5 = np.load('phd08_labels_1.npy', mmap_mode='r')
+temp_6 = np.load('phd08_labels_2.npy', mmap_mode='r')
+temp_7 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_8 = np.load('phd08_labels_4.npy', mmap_mode='r')
 
-train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0)
-train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
+train_images = np.concatenate((temp_1, temp_2, temp_3, temp_4), axis=0) / 255.0
+train_labels = np.concatenate((temp_5, temp_6, temp_7, temp_8), axis=0)
 
 hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 
@@ -110,17 +112,17 @@ $ python3 hangul_keras.py
 2019-11-25 01:08:36.344775: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 2019-11-25 01:08:36.357955: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7f82b8043fe0 executing computations on platform Host. Devices:
 2019-11-25 01:08:36.357989: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
-Train on 13122 samples
+Train on 17496 samples
 Epoch 1/5
-13122/13122 [==============================] - 1s 98us/sample - loss: 0.0522 - accuracy: 0.9889
+17496/17496 [==============================] - 1s 81us/sample - loss: 0.0585 - accuracy: 0.9876
 Epoch 2/5
-13122/13122 [==============================] - 1s 55us/sample - loss: 7.5709e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 0.0013 - accuracy: 0.9999
 Epoch 3/5
-13122/13122 [==============================] - 1s 52us/sample - loss: 2.5629e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 3.5093e-04 - accuracy: 1.0000
 Epoch 4/5
-13122/13122 [==============================] - 1s 54us/sample - loss: 1.3129e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 1.6389e-04 - accuracy: 1.0000
 Epoch 5/5
-13122/13122 [==============================] - 1s 55us/sample - loss: 7.9286e-05 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 9.4250e-05 - accuracy: 1.0000
 ```
 
 ## [Python] Keras Prediction
@@ -145,12 +147,14 @@ predict_image_path = 'handwriting.jpeg'
 temp_1 = np.load('phd08_data_1.npy', mmap_mode='r')
 temp_2 = np.load('phd08_data_2.npy', mmap_mode='r')
 temp_3 = np.load('phd08_data_3.npy', mmap_mode='r')
-temp_4 = np.load('phd08_labels_1.npy', mmap_mode='r')
-temp_5 = np.load('phd08_labels_2.npy', mmap_mode='r')
-temp_6 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_4 = np.load('phd08_data_4.npy', mmap_mode='r')
+temp_5 = np.load('phd08_labels_1.npy', mmap_mode='r')
+temp_6 = np.load('phd08_labels_2.npy', mmap_mode='r')
+temp_7 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_8 = np.load('phd08_labels_4.npy', mmap_mode='r')
 
-train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0) / 255.0
-train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
+train_images = np.concatenate((temp_1, temp_2, temp_3, temp_4), axis=0) / 255.0
+train_labels = np.concatenate((temp_5, temp_6, temp_7, temp_8), axis=0)
 
 hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 
@@ -194,17 +198,17 @@ $ python3 hangul_keras.py
 2019-11-25 03:05:43.819371: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 2019-11-25 03:05:43.832289: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7fe5fd478a10 executing computations on platform Host. Devices:
 2019-11-25 03:05:43.832309: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
-Train on 13122 samples
+Train on 17496 samples
 Epoch 1/5
-13122/13122 [==============================] - 1s 85us/sample - loss: 0.0447 - accuracy: 0.9899
+17496/17496 [==============================] - 1s 81us/sample - loss: 0.0585 - accuracy: 0.9876
 Epoch 2/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 5.1303e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 0.0013 - accuracy: 0.9999
 Epoch 3/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 1.9411e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 3.5093e-04 - accuracy: 1.0000
 Epoch 4/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 1.0451e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 1.6389e-04 - accuracy: 1.0000
 Epoch 5/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 6.4303e-05 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 9.4250e-05 - accuracy: 1.0000
 Predicted:  밟
 ```
 
@@ -217,17 +221,17 @@ $ python3 hangul_keras.py
 2019-11-25 03:08:38.833136: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 2019-11-25 03:08:38.847052: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7fbcd6c4b3a0 executing computations on platform Host. Devices:
 2019-11-25 03:08:38.847072: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
-Train on 13122 samples
+Train on 17496 samples
 Epoch 1/5
-13122/13122 [==============================] - 1s 89us/sample - loss: 0.0477 - accuracy: 0.9889
+17496/17496 [==============================] - 1s 81us/sample - loss: 0.0585 - accuracy: 0.9876
 Epoch 2/5
-13122/13122 [==============================] - 1s 51us/sample - loss: 6.0353e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 0.0013 - accuracy: 0.9999
 Epoch 3/5
-13122/13122 [==============================] - 1s 51us/sample - loss: 2.1360e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 3.5093e-04 - accuracy: 1.0000
 Epoch 4/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 1.0218e-04 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 1.6389e-04 - accuracy: 1.0000
 Epoch 5/5
-13122/13122 [==============================] - 1s 50us/sample - loss: 5.9258e-05 - accuracy: 1.0000
+17496/17496 [==============================] - 1s 57us/sample - loss: 9.4250e-05 - accuracy: 1.0000
 Predicted:  꺅
 ```
 
@@ -253,12 +257,14 @@ predict_image_path = 'handwriting.jpeg'
 temp_1 = np.load('phd08_data_1.npy', mmap_mode='r')
 temp_2 = np.load('phd08_data_2.npy', mmap_mode='r')
 temp_3 = np.load('phd08_data_3.npy', mmap_mode='r')
-temp_4 = np.load('phd08_labels_1.npy', mmap_mode='r')
-temp_5 = np.load('phd08_labels_2.npy', mmap_mode='r')
-temp_6 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_4 = np.load('phd08_data_4.npy', mmap_mode='r')
+temp_5 = np.load('phd08_labels_1.npy', mmap_mode='r')
+temp_6 = np.load('phd08_labels_2.npy', mmap_mode='r')
+temp_7 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_8 = np.load('phd08_labels_4.npy', mmap_mode='r')
 
-train_images = np.concatenate((temp_1, temp_2, temp_3), axis=0) / 255.0
-train_labels = np.concatenate((temp_4, temp_5, temp_6), axis=0)
+train_images = np.concatenate((temp_1, temp_2, temp_3, temp_4), axis=0) / 255.0
+train_labels = np.concatenate((temp_5, temp_6, temp_7, temp_8), axis=0)
 
 hangul = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 
