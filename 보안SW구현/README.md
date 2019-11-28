@@ -1,4 +1,4 @@
-# 한글 Image Classification
+# Keras 한글 Image Classification
 
 Keras로 한글을 Image Classification하는 방법을 안내하는 문서입니다. [이 문서에서 쓰이는 소스코드 (링크)](https://github.com/pookjw/univ_assignment/blob/master/보안SW구현/hangul_keras.py)
 
