@@ -473,4 +473,6 @@ Predicted:  밟
 
 [Basic classification: Classify images of clothing](https://www.tensorflow.org/tutorials/keras/classification)
 
+[Train and evaluate with Keras](https://www.tensorflow.org/guide/keras/train_and_evaluate)
+
 한글 Image Classification에 맞게 위 사이트에 있는 코드를 변형했습니다.
