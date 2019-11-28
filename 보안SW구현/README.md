@@ -1,6 +1,6 @@
 # 한글 Image Classification
 
-Keras로 한글을 Image Classification하는 방법을 안내하는 문서입니다.
+Keras로 한글을 Image Classification하는 방법을 안내하는 문서입니다. [이 문서에서 쓰이는 소스코드 (링크)](https://github.com/pookjw/univ_assignment/blob/master/보안SW구현/hangul_keras.py)
 
 ## [Python] tensorflow 설치
 
@@ -345,6 +345,129 @@ plt.show()
 ```
 
 ![6](https://live.staticflickr.com/65535/49120238117_cf97358b0d_o.png)
+
+## [Python] Validation
+
+17496개의 데이터를 train용 12000개, validation용으로 5496개로 나누어서 하겠습니다.
+
+```python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.misc import imresize
+from scipy.misc import imread
+
+# Load Data
+
+# 손글씨 사진과 npy data들의 파일 경로를 입력해 줍니다.
+predict_image_path = 'handwriting.jpeg'
+temp_1 = np.load('phd08_data_1.npy', mmap_mode='r')
+temp_2 = np.load('phd08_data_2.npy', mmap_mode='r')
+temp_3 = np.load('phd08_data_3.npy', mmap_mode='r')
+temp_4 = np.load('phd08_data_4.npy', mmap_mode='r')
+temp_5 = np.load('phd08_labels_1.npy', mmap_mode='r')
+temp_6 = np.load('phd08_labels_2.npy', mmap_mode='r')
+temp_7 = np.load('phd08_labels_3.npy', mmap_mode='r')
+temp_8 = np.load('phd08_labels_4.npy', mmap_mode='r')
+
+train_images = np.concatenate((temp_1[:3000], temp_2[:3000], temp_3[:3000], temp_4[:3000]), axis=0) / 255.0
+train_labels = np.concatenate((temp_5[:3000], temp_6[:3000], temp_7[:3000], temp_8[:3000]), axis=0)
+
+validation_images = np.concatenate((temp_1[3000:], temp_2[3000:], temp_3[3000:], temp_4[3000:]), axis=0) / 255.0
+validation_labels = np.concatenate((temp_5[3000:], temp_6[3000:], temp_7[3000:], temp_8[3000:]), axis=0)
+
+hangul_names = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
+
+# Training & Validation
+
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(8, activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(train_images, train_labels, batch_size=64, epochs=5, validation_data=(validation_images, validation_labels))
+
+# Prediction
+
+def predict_image(image):
+    temp_image = imread(image, flatten=True, mode='I')
+    temp_image = imresize(temp_image, [28, 28])
+    temp_image = temp_image.reshape(1,28,28)
+    temp_image = (((temp_image / 255.0) - 1)) * (-1) # 흑백 반전
+    return temp_image
+
+test_image = [predict_image(predict_image_path)]
+test_label = [5]
+plt.figure()
+plt.imshow(test_image[0].reshape(28,28))
+plt.show()
+
+prediction = model.predict(test_image)
+index = np.argmax(prediction[0])
+print('Predicted: ', hangul_names[index])
+
+# Graph
+
+def plot_image(i, predictions_array, true_label, img):
+  predictions_array, true_label, img = predictions_array, true_label[i], img[i]
+  plt.grid(False)
+  plt.xticks([])
+  plt.yticks([])
+
+  plt.imshow(img.reshape(28,28), cmap=plt.cm.binary)
+
+  predicted_label = np.argmax(predictions_array)
+  if predicted_label == true_label:
+    color = 'blue'
+  else:
+    color = 'red'
+
+  plt.xlabel("{:2.0f}%".format(100*np.max(predictions_array), color=color))
+
+def plot_value_array(i, predictions_array, true_label):
+  predictions_array, true_label = predictions_array, true_label[i]
+  plt.grid(False)
+  plt.xticks(range(8))
+  plt.yticks([])
+  thisplot = plt.bar(range(8), predictions_array, color="#777777")
+  plt.ylim([0, 1])
+  predicted_label = np.argmax(predictions_array)
+
+  thisplot[predicted_label].set_color('red')
+  thisplot[true_label].set_color('blue')
+
+i = 0
+plt.figure(figsize=(6,3))
+plt.subplot(1,2,1)
+plot_image(i, prediction[i], test_label, test_image)
+plt.subplot(1,2,2)
+plot_value_array(i, prediction[i], test_label)
+plt.show()
+
+```
+
+```
+$ python3 hangul_keras.py
+2019-11-29 03:48:58.712928: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-11-29 03:48:58.771019: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7f9a574973c0 executing computations on platform Host. Devices:
+2019-11-29 03:48:58.771051: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+Train on 12000 samples, validate on 5496 samples
+Epoch 1/5
+12000/12000 [==============================] - 2s 199us/sample - loss: 0.1326 - accuracy: 0.9657 - val_loss: 0.9757 - val_accuracy: 0.7853
+Epoch 2/5
+12000/12000 [==============================] - 1s 88us/sample - loss: 0.0045 - accuracy: 0.9994 - val_loss: 1.0629 - val_accuracy: 0.7858
+Epoch 3/5
+12000/12000 [==============================] - 1s 92us/sample - loss: 0.0015 - accuracy: 0.9999 - val_loss: 1.1926 - val_accuracy: 0.7691
+Epoch 4/5
+12000/12000 [==============================] - 1s 87us/sample - loss: 7.1645e-04 - accuracy: 1.0000 - val_loss: 1.2404 - val_accuracy: 0.7711
+Epoch 5/5
+12000/12000 [==============================] - 1s 100us/sample - loss: 4.4255e-04 - accuracy: 1.0000 - val_loss: 1.2203 - val_accuracy: 0.7864
+Predicted:  밟
+```
 
 ## 코드 출처 및 더 많은 자료
 

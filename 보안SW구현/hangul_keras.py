@@ -19,12 +19,15 @@ temp_6 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/p
 temp_7 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_3.npy', mmap_mode='r')
 temp_8 = np.load('/Users/pook/Google Drive/Documents/project/phd08_npy_results/phd08_labels_3.npy', mmap_mode='r')
 
-train_images = np.concatenate((temp_1, temp_2, temp_3, temp_4), axis=0) / 255.0
-train_labels = np.concatenate((temp_5, temp_6, temp_7, temp_8), axis=0)
+train_images = np.concatenate((temp_1[:3000], temp_2[:3000], temp_3[:3000], temp_4[:3000]), axis=0) / 255.0
+train_labels = np.concatenate((temp_5[:3000], temp_6[:3000], temp_7[:3000], temp_8[:3000]), axis=0)
+
+validation_images = np.concatenate((temp_1[3000:], temp_2[3000:], temp_3[3000:], temp_4[3000:]), axis=0) / 255.0
+validation_labels = np.concatenate((temp_5[3000:], temp_6[3000:], temp_7[3000:], temp_8[3000:]), axis=0)
 
 hangul_names = ['라', '호', '댜', '밟', '자', '꺅', '갠', '아']
 
-# Training
+# Training & Validation
 
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
@@ -33,7 +36,7 @@ model = keras.Sequential([
 ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-model.fit(train_images, train_labels, epochs=5)
+model.fit(train_images, train_labels, batch_size=64, epochs=5, validation_data=(validation_images, validation_labels))
 
 # Prediction
 
